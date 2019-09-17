@@ -181,4 +181,3 @@ pub fn (self Bitmap) write_to_file(path string) {
         panic('bitmap save failed: $path $self')
     }
 }
-
