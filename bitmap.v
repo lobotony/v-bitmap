@@ -1,7 +1,7 @@
 module bitmap
 
 import stb_image_write
-import data
+import ldata
 
 #flag   -I @VROOT/thirdparty/stb_image
 #define STB_IMAGE_IMPLEMENTATION
@@ -62,11 +62,11 @@ pub fn init(width u16, height u16, format Format) Bitmap {
 }
 
 pub fn init_from_file(path string) Bitmap {
-    file_contents := data.init_with_file(path)
+    file_contents := ldata.init_with_file(path)
     return init_from_data(file_contents)
 }
 
-pub fn init_from_data(buffer data.Data) Bitmap {
+pub fn init_from_data(buffer ldata.Data) Bitmap {
     
     mut w := int(0)
     mut h := int(0)
