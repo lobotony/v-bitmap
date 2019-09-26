@@ -1,44 +1,12 @@
 module bitmap
 
-import stb_image_write
-import ldata
+import lobotony.stb_image_write
+import lobotony.ldata
 
 #flag   -I @VROOT/thirdparty/stb_image
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-enum Format {
-    undefined,
-    a,
-    rgb,
-    rgba
-}
-
-pub fn (self Format) str() string {
-    mut s := 'unknown'
-    if self == .undefined {
-        s = 'undefined'
-    } else if self == .a {
-        s = 'a'
-    } else if self == .rgb {
-        s = 'rgb'
-    } else if self == .rgba {
-        s = 'rgba'
-    }
-    return 'Format{$s}'
-}
-
-fn (format Format) bytes_per_pixel() int {
-    if format == .a {
-        return 1
-    } else if format == .rgb {
-        return 3
-    } else if format == .rgba {
-        return 4
-    } else {
-        panic('can\'t derive bpp from format $format')
-    }
-}
 
 struct Bitmap {
     pub:
@@ -177,7 +145,40 @@ pub fn (self Bitmap) flip_vertically() {
 pub fn (self Bitmap) write_to_file(path string) {
     bpp := self.format.bytes_per_pixel()
     result := C.stbi_write_png(path.str, int(self.width), int(self.height), int(bpp), self.data, int(bpp)*int(self.width))
-    if !result {
+    if C.NULL == result {
         panic('bitmap save failed: $path $self')
+    }
+}
+
+enum Format {
+    undefined,
+    a,
+    rgb,
+    rgba
+}
+
+pub fn (self Format) str() string {
+    mut s := 'unknown'
+    if self == .undefined {
+        s = 'undefined'
+    } else if self == .a {
+        s = 'a'
+    } else if self == .rgb {
+        s = 'rgb'
+    } else if self == .rgba {
+        s = 'rgba'
+    }
+    return 'Format{$s}'
+}
+
+fn (format Format) bytes_per_pixel() int {
+    if format == .a {
+        return 1
+    } else if format == .rgb {
+        return 3
+    } else if format == .rgba {
+        return 4
+    } else {
+        panic('can\'t derive bpp from format $format')
     }
 }
