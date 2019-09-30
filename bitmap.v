@@ -1,6 +1,6 @@
 module bitmap
 
-import lobotony.stb_image_write
+import lobotony.stbiw
 import lobotony.ldata
 
 #flag   -I @VROOT/thirdparty/stb_image
