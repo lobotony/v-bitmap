@@ -1,11 +1,14 @@
 module bitmap
 
-import lobotony.stbiw
 import lobotony.ldata
 
 #flag   -I @VROOT/thirdparty/stb_image
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+
+#flag -I @VMOD/lobotony/stbiw
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
 
 
 struct Bitmap {
