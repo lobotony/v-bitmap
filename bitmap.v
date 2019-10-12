@@ -26,7 +26,7 @@ fn (self Bitmap) str() string {
     return 'Bitmap{data:${u64(self.data).str()} width:${self.width} height:${self.height} format:${self.format.str()} premultiplied:${self.premultiplied} loaded:${self.loaded}}'
 }
 
-pub fn init(width u16, height u16, format Format) Bitmap {
+pub fn init_with_size(width u16, height u16, format Format) Bitmap {
     size_in_bytes := u32(width) * u32(height) * u32(format.bytes_per_pixel())
     //println('allocating $size_in_bytes bytes for $width x $height ${format.str()}')
     return Bitmap{malloc(int(size_in_bytes)), width, height, format, false, false}
