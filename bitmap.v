@@ -67,8 +67,10 @@ pub fn (self Bitmap) deinit() {
         //println('freeing decoded bitmap data ${u64(self.data).str()}')
         C.stbi_image_free(self.data)
     } else {
-        //println('freeing allocated bitmap data ${u64(self.data).str()}')
-        free(self.data)
+        unsafe {
+            //println('freeing allocated bitmap data ${u64(self.data).str()}')
+            free(self.data)
+        }
     }
     C.memset(&self, 0, sizeof(Bitmap))
 }
