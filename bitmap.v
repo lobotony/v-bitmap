@@ -11,7 +11,7 @@ import lobotony.ldata
 #include "stb_image_write.h"
 
 
-struct Bitmap {
+pub struct Bitmap {
     pub:
     data byteptr        // points to the raw pixel data
     width u16           // width in pixels
